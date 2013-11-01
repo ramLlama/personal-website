@@ -15,4 +15,6 @@ generate-site
 
 # compiled CSS
 css
+
+# sass-cache
 .sass-cache
