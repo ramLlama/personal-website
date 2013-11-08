@@ -31,11 +31,6 @@ main = hakyllWith config $ do
         route   (constRoute "favicon.ico")
         compile copyFileCompiler
 
-    -- public GPG key
-    match "static/mail@benjeffrey.com.asc" $ do
-        route   (constRoute "mail@benjeffrey.com.asc")
-        compile copyFileCompiler
-
     match "static/vCard.vcf" $ do
         route   (constRoute "vCard.vcf")
         compile copyFileCompiler
@@ -74,9 +69,9 @@ main = hakyllWith config $ do
         route idRoute
         compile $ do
             let archiveCtx =
-                    field "posts" (\_ -> postList recentFirst)          `mappend`
+                    field "posts" (\_ -> itemList "posts/*" recentFirst)          `mappend`
                     constField "title" "Posts archive"                   `mappend`
-                    constField "description" "Previous posts on benjeffrey.com"  `mappend`
+                    constField "description" "Previous posts on this site"  `mappend`
                     defaultContext
             makeItem ""
                 >>= loadAndApplyTemplate "templates/archive.html" archiveCtx
@@ -87,8 +82,16 @@ main = hakyllWith config $ do
     match "index.html" $ do
         route idRoute
         compile $ do
-            let indexCtx = field "posts" $ \_ ->
-                                postList $ fmap (take 3) . recentFirst
+            let indexCtx = field
+                           "posts"
+                           (\_ -> itemList "posts/*" $ fmap (take 3) . recentFirst)
+
+                           `mappend`
+
+                           field
+                           "publications"
+                           (\_ -> itemList "publications/*" $ fmap (take 3) . recentFirst)
+
 
             getResourceBody
                 >>= applyAsTemplate indexCtx
@@ -104,9 +107,9 @@ postCtx =
 
 
 --------------------------------------------------------------------------------
-postList :: ([Item String] -> Compiler [Item String]) -> Compiler String
-postList sortFilter = do
-    posts   <- sortFilter =<< loadAll "posts/*"
+itemList :: Pattern -> ([Item String] -> Compiler [Item String]) -> Compiler String
+itemList glob sortFilter = do
+    posts   <- sortFilter =<< loadAll glob
     itemTpl <- loadBody "templates/post-item.html"
     list    <- applyTemplateList itemTpl postCtx posts
     return list
