@@ -1,0 +1,37 @@
+@import "base";
+
+// Business Card Information ------------------------
+.business-card {
+    @include grid-row;
+
+    margin-top: 10px;
+    margin-bottom: 10px;
+
+    .text {
+	@include grid-column(8);
+    }
+
+    .picture {
+	@include grid-column(4);
+    }
+}
+
+.synopsis {
+    @include grid-row;
+
+    .biography {
+	@include grid-column(6);
+    }
+
+    .recent-updates {
+	@include grid-column(6);
+
+	.publications {
+	    @include grid-row;
+	}
+
+	.posts {
+	    @include grid-row;
+	}
+    }
+}

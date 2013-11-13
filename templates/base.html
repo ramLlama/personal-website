@@ -1,61 +1,45 @@
 <!doctype html>
 <html lang="en">
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <title>$title$ ~ Ben Jeffrey</title>
-        <meta name="description" content="$description$">
-        <link rel="author" href="http://benjeffrey.net">
-
-        <link rel="shortcut icon" href="/favicon.ico" />
-
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="/static/css/app.css" />
-    </head>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>$title$ ~ Ram Raghunathan</title>
+    <meta name="description" content="$description$">
+    <link rel="author" href="http://cs.cmu.edu/~rraghuna">
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="$stylesheet$" />
+  </head>
 
 
-    <body>
-        <div class="wrapper">
-        <nav class="hide-for-print">
-            <div class="name"><a href="/">Ben Jeffrey</a></div>
-            <a class="face" href="/"><img src="/static/img/profile.jpg"></a>
-            <div class="username"><a href="/">jeffbr13</a></div>
+  <body>
+    <div class="wrapper">
+      <div class="contain-to-grid fixed">
+	<nav class="top-bar">
+	  <ul class="title-area">
+	    <li class="name">
+	      <h1><a href="/index.html">Ram Raghunathan</a></h1>
+	    </li>
+	  </ul>
 
-            <div class="navigation-list">
-                <ul>
-                    <li class="divider"></li>
-                    <li><a href="/vCard.vcf">contact details (vCard)</a></li>
-                    <li><a href="/cv">curriculum vitae</a></li>
-                    <li><a href="mailto:mail@benjeffrey.com">email</a> (<a class="public-key" href="/mail@benjeffrey.com.asc">public key: AEA73FB6</a>)</li>
-                    <li><a href="https://github.com/jeffbr13?tab=repositories">projects</a></li>
-                    <li><a href="/archive">posts</a></li>
-                </ul>
-            </div>
-        </nav>
+	  <section class="top-bar-section">
+	    <ul class="right">
+	      <li><a href="posts/index">Posts</a></li>
+	      <li><a href="publications/index">Publications</a></li>
+	      <li><a href="static/resume.pdf">Resume</a></li>
+	      <li><a href="miscellaneous/index">Miscellaneous</a></li>
+	    </ul>
+	  </section>
+	</nav>
+      </div>
 
-        <div class="content">
-            $body$
-        </div>
-        </div>
+      <div class="content">
+	$body$
+      </div>
+    </div>
 
-        <div class="push"></div>
-        <footer class="hide-for-print">
-            <p>⚒ Built with <a href="http://jaspervdj.be/hakyll/">Hakyll</a>. Source available on <a href="https://github.com/jeffbr13/benjeffrey.com">GitHub</a>. Content reusable under <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/deed.en_US">CC BY-SA 3.0</a>.</p>
-
-            <!-- Le Javascript -->
-            <script type="text/javascript">
-              var _gauges = _gauges || [];
-              (function() {
-                var t   = document.createElement('script');
-                t.type  = 'text/javascript';
-                t.async = true;
-                t.id    = 'gauges-tracker';
-                t.setAttribute('data-site-id', '51e6e6a2613f5d4682000060');
-                t.src = '//secure.gaug.es/track.js';
-                var s = document.getElementsByTagName('script')[0];
-                s.parentNode.insertBefore(t, s);
-              })();
-            </script>
-            <!--  -->
-        </footer>
-    </body>
+    <div class="push"></div>
+    <footer class="hide-on-print">
+      <p>Built with <a href="http://jaspervdj.be/hakyll/">Hakyll</a>. Source available on <a href="https://github.com/ramLlama/cmu-website">GitHub</a>. Content reusable under <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/deed.en_US">CC BY-SA 3.0</a>.</p>
+    </footer>
+  </body>
 </html>
