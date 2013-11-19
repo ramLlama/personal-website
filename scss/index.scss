@@ -16,22 +16,8 @@
     }
 }
 
+// Synopsis of site data ----------------------------
 .synopsis {
     @include grid-row;
-
-    .biography {
-	@include grid-column(6);
-    }
-
-    .recent-updates {
-	@include grid-column(6);
-
-	.publications {
-	    @include grid-row;
-	}
-
-	.posts {
-	    @include grid-row;
-	}
-    }
+    @include grid-column(8, false, true);
 }

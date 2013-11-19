@@ -14,7 +14,7 @@ hakyll
 generate-site
 
 # compiled CSS
-css
+*.css
 
 # sass-cache
 .sass-cache
