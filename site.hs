@@ -31,7 +31,8 @@ main = hakyllWith config $ do
         route   (constRoute "favicon.ico")
         compile copyFileCompiler
 
-    match "static/*/*" $ do
+    -- copy static files
+    match "static/**" $ do
         route   idRoute
         compile copyFileCompiler
 
