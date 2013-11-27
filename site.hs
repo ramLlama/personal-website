@@ -36,6 +36,11 @@ main = hakyllWith config $ do
         route   idRoute
         compile copyFileCompiler
 
+    -- copy js
+    match "js/**" $ do
+      route idRoute
+      compile copyFileCompiler
+
     match ("scss/index.scss" .||.
            "scss/post.scss" .||.
            "scss/item-index.scss") $ do

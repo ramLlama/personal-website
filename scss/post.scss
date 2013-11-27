@@ -31,7 +31,6 @@ pre {
     .date {
         @include grid-column(8, true);
         text-align: right;
-        color: $tertiary-color;
         &:before {
             content: "[modified "
         }
