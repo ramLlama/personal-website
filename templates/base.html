@@ -6,7 +6,7 @@
     <meta name="description" content="$description$">
     <link rel="author" href="http://cs.cmu.edu/~rraghuna">
     <link rel="shortcut icon" href="/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="$stylesheet$" />
     <script src="/js/vendor/custom.modernizr.js"></script>
   </head>
@@ -33,11 +33,11 @@
       <div class="content">
 	$body$
       </div>
+      <div class="push"></div>
     </div>
 
-    <div class="push"></div>
     <footer>
-      <p>Built with <a href="http://jaspervdj.be/hakyll/">Hakyll</a>. Source available on <a href="https://github.com/ramLlama/cmu-website">GitHub</a>. Content reusable under <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/deed.en_US">CC BY-SA 3.0</a>.</p>
+      <p><a href="/colophon.html">Colophon</a></p>
     </footer>
 
     <!-- Scripts -->
@@ -47,7 +47,7 @@
 
     <!-- Load Foundation JS -->
     <script>
-      $(document).foundation();
+      $$(document).foundation();
     </script>
   </body>
 </html>

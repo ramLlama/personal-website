@@ -1,0 +1,85 @@
+// Fonts -----------------------------------------------------------
+@font-face {
+    font-family: 'Merriweather';
+    src: url('/static/fonts/Merriweather/merriweather_bold_webfont.eot');
+    src: url('/static/fonts/Merriweather/merriweather_bold_webfont.eot?#iefix') format('embedded-opentype'),
+         url('/static/fonts/Merriweather/merriweather_bold_webfont.woff') format('woff'),
+         url('/static/fonts/Merriweather/merriweather_bold_webfont.ttf') format('truetype'),
+         url('/static/fonts/Merriweather/merriweather_bold_webfont.svg#merriweatherbold') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Merriweather';
+    src: url('/static/fonts/Merriweather/merriweather_italic_webfont.eot');
+    src: url('/static/fonts/Merriweather/merriweather_italic_webfont.eot?#iefix') format('embedded-opentype'),
+         url('/static/fonts/Merriweather/merriweather_italic_webfont.woff') format('woff'),
+         url('/static/fonts/Merriweather/merriweather_italic_webfont.ttf') format('truetype'),
+         url('/static/fonts/Merriweather/merriweather_italic_webfont.svg#merriweatheritalic') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Merriweather';
+    src: url('/static/fonts/Merriweather/merriweather_regular_webfont.eot');
+    src: url('/static/fonts/Merriweather/merriweather_regular_webfont.eot?#iefix') format('embedded-opentype'),
+         url('/static/fonts/Merriweather/merriweather_regular_webfont.woff') format('woff'),
+         url('/static/fonts/Merriweather/merriweather_regular_webfont.ttf') format('truetype'),
+         url('/static/fonts/Merriweather/merriweather_regular_webfont.svg#merriweatherregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Volkorn';
+    src: url('/static/fonts/Volkorn/vollkorn_bold_webfont.eot');
+    src: url('/static/fonts/Volkorn/vollkorn_bold_webfont.eot?#iefix') format('embedded-opentype'),
+         url('/static/fonts/Volkorn/vollkorn_bold_webfont.woff') format('woff'),
+         url('/static/fonts/Volkorn/vollkorn_bold_webfont.ttf') format('truetype'),
+         url('/static/fonts/Volkorn/vollkorn_bold_webfont.svg#vollkornbold') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Volkorn';
+    src: url('/static/fonts/Volkorn/vollkorn_italic_webfont.eot');
+    src: url('/static/fonts/Volkorn/vollkorn_italic_webfont.eot?#iefix') format('embedded-opentype'),
+         url('/static/fonts/Volkorn/vollkorn_italic_webfont.woff') format('woff'),
+         url('/static/fonts/Volkorn/vollkorn_italic_webfont.ttf') format('truetype'),
+         url('/static/fonts/Volkorn/vollkorn_italic_webfont.svg#vollkornitalic') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Volkorn';
+    src: url('/static/fonts/Volkorn/vollkorn_regular_webfont.eot');
+    src: url('/static/fonts/Volkorn/vollkorn_regular_webfont.eot?#iefix') format('embedded-opentype'),
+         url('/static/fonts/Volkorn/vollkorn_regular_webfont.woff') format('woff'),
+         url('/static/fonts/Volkorn/vollkorn_regular_webfont.ttf') format('truetype'),
+         url('/static/fonts/Volkorn/vollkorn_regular_webfont.svg#vollkornregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+// color palette ----------------------------------------------------
+// from https://kuler.adobe.com/1944mustang-color-theme-4817/ -------
+$color-black: #000000;
+$color-blue: #263248;
+$color-grey: #7E8AA2;
+$color-white: #FFFFFF;
+$color-orange: #FF9800;
+
+// Foundation Settings overrides ------------------------------------
+$topbar-bg: $color-blue;
+$primary-color: $color-black;
+$secondary-color: $color-blue;
+$body-font-color: $color-black;
+$anchor-font-color: $color-blue;
+$anchor-font-color-hover: darken($anchor-font-color, 5%);
+
+$header-font-family: Volkorn, Helvetica, Arial, sans-serif;
+$body-font-family: Merriweather, Helvetica, Arial, sans-serif !default;

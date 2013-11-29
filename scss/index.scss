@@ -2,22 +2,58 @@
 
 // Business Card Information ------------------------
 .business-card {
-    @include grid-row;
 
-    margin-top: 10px;
-    margin-bottom: 10px;
+    @media #{$medium-up} {
+	@include grid-row;
 
-    .text {
-	@include grid-column(8);
+	margin-top: 10px;
+	margin-bottom: 10px;
     }
 
-    .picture {
-	@include grid-column(4);
+    .text {
+	@media #{$medium-up} {
+	    @include grid-column(8);
+	}
+
+	ul {
+	    list-style-type: none;
+	    margin: 0px;
+	    padding: 0px;
+
+	    li {
+		@include grid-row;
+	    }
+
+	    @media #{$small-only} {
+		#name {
+		    text-align: center;
+		}
+	    }
+
+	    @media #{$medium-up} {
+		#picture-for-small {
+		    display: none;
+		}
+	    }
+	}
+    }
+
+    #picture-for-medium-up {
+	@media #{$small-only} {
+	    display: none;
+	}
+
+	@media #{$medium-up} {
+	    @include grid-column(4);
+	}
     }
 }
 
 // Synopsis of site data ----------------------------
 .synopsis {
     @include grid-row;
-    @include grid-column(8, false, true);
+
+    @media #{$medium-up} {
+	@include grid-column(8, false, true);
+    }
 }

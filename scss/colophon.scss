@@ -1,0 +1,10 @@
+@import "base";
+
+// Layout ---------------------------------------
+.colophon {
+    @include grid-row;
+
+    @media #{$medium-up} {
+	@include grid-column(8, false, true);
+    }
+}

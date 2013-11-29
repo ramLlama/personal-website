@@ -41,9 +41,7 @@ main = hakyllWith config $ do
       route idRoute
       compile copyFileCompiler
 
-    match ("scss/index.scss" .||.
-           "scss/post.scss" .||.
-           "scss/item-index.scss") $ do
+    match (fromRegex "^scss/[^_][^\\.]*\\.scss$") $ do
         route   $ gsubRoute "scss/" (const "static/css/") `composeRoutes` setExtension "css"
         compile $ getResourceString
             >>= withItemBody (unixFilter "sass" ["-s", "--scss", "--compass", "--style", "compressed"])
@@ -78,13 +76,21 @@ main = hakyllWith config $ do
                            "publications"
                            (\_ -> publicationList $ fmap (take 3) . recentFirst)
 
-                baseCtx = constField "title" "Home" `mappend`
-                          constField "description" "CMU home page of Ram Raghunathan" `mappend`
-                          constField "stylesheet" "/static/css/index.css" `mappend`
+                baseCtx = constField "stylesheet" "/static/css/index.css" `mappend`
                           itemCtx
 
             getResourceBody
                 >>= applyAsTemplate indexCtx
+                >>= loadAndApplyTemplate "templates/base.html" baseCtx
+                >>= relativizeUrls
+
+    match "colophon.html" $ do
+        route idRoute
+        compile $ do
+            let baseCtx = constField "stylesheet" "/static/css/colophon.css" `mappend`
+                          itemCtx
+
+            getResourceBody
                 >>= loadAndApplyTemplate "templates/base.html" baseCtx
                 >>= relativizeUrls
 
@@ -101,10 +107,10 @@ main = hakyllWith config $ do
             baseCtx =
               constField "title" "Posts" `mappend`
               constField "description" "Previous posts on cs.cmu.edu/~rraghuna" `mappend`
-              constField "stylesheet" "/static/css/item-index.css" `mappend`
+              constField "stylesheet" "/static/css/item_index.css" `mappend`
               defaultContext
         makeItem ""
-          >>= loadAndApplyTemplate "templates/item-index.html" postIndexCtx
+          >>= loadAndApplyTemplate "templates/item_index.html" postIndexCtx
           >>= loadAndApplyTemplate "templates/base.html" baseCtx
           >>= relativizeUrls
 
@@ -120,14 +126,14 @@ main = hakyllWith config $ do
             baseCtx =
               constField "title" "Publications" `mappend`
               constField "description" "Publications findable on cs.cmu.edu/~rraghuna" `mappend`
-              constField "stylesheet" "/static/css/item-index.css" `mappend`
+              constField "stylesheet" "/static/css/item_index.css" `mappend`
               defaultContext
         makeItem ""
-          >>= loadAndApplyTemplate "templates/item-index.html" publicationIndexCtx
+          >>= loadAndApplyTemplate "templates/item_index.html" publicationIndexCtx
           >>= loadAndApplyTemplate "templates/base.html" baseCtx
           >>= relativizeUrls
 
-    match "miscellaneous/index-items.html" $ do
+    match "miscellaneous/index_items.html" $ do
       route (constRoute "miscellaneous/index.html")
       compile $ do
         let miscellaneousIndexCtx =
@@ -138,10 +144,10 @@ main = hakyllWith config $ do
             baseCtx =
               constField "title" "Miscellaneous" `mappend`
               constField "description" "Miscellaneous items on cs.cmu.edu/~rraghuna" `mappend`
-              constField "stylesheet" "/static/css/item-index.css" `mappend`
+              constField "stylesheet" "/static/css/item_index.css" `mappend`
               defaultContext
         getResourceBody
-          >>= loadAndApplyTemplate "templates/item-index.html" miscellaneousIndexCtx
+          >>= loadAndApplyTemplate "templates/item_index.html" miscellaneousIndexCtx
           >>= loadAndApplyTemplate "templates/base.html" baseCtx
           >>= relativizeUrls
 
@@ -162,7 +168,7 @@ itemList glob template sortFilter = do
     return list
 
 postList :: ([Item String] -> Compiler [Item String]) -> Compiler String
-postList sortFilter = itemList "posts/*" "templates/post-listing.html" sortFilter
+postList sortFilter = itemList "posts/*" "templates/post_listing.html" sortFilter
 
 publicationList :: ([Item String] -> Compiler [Item String]) -> Compiler String
-publicationList sortFilter = itemList "publications/*" "templates/publication-listing.html" sortFilter
+publicationList sortFilter = itemList "publications/*" "templates/publication_listing.html" sortFilter
