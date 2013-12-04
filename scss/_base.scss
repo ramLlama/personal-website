@@ -1,15 +1,16 @@
+@import "sticky_footer";
 @import "my_settings";
 @import "foundation";
 
 // Global Constraints ---------------------------------------------------
-.wrapper {
+#wrapper {
     @media #{$small} {
         @include grid-row;
     }
 }
 
 .content {
-    margin-top: $topbar-height + 10px;
+    padding-top: $topbar-height + 10px;
 }
 
 // Global classes -------------------------------------------------------
@@ -19,16 +20,15 @@
     margin-right: auto;
 }
 
-// Layout ---------------------------------------------------------------
-@import "compass/layout/sticky-footer";
-@include sticky-footer(2em, ".wrapper", ".push", "footer");
-footer {
-    padding-top: 0.5em;
+
+#footer {
     background-image: url("../img/footer_background.png");
 
     p {
+    	padding: 0em;
+	margin: 0em;
         text-align: center;
         max-width: none;
-	color: $color-blue;
+    	color: $color-blue;
     }
 }

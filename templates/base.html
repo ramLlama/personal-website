@@ -1,6 +1,15 @@
 <!doctype html>
 <html lang="en">
   <head>
+    <!-- For sticky footer in IE -->
+    <!--[if !IE 7]>
+	<style type="text/css">
+	  #wrapper {
+	      display: table;
+	      height: 100%
+	  }
+	</style>
+	<![endif]-->
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>$title$ ~ Ram Raghunathan</title>
     <meta name="description" content="$description$">
@@ -12,33 +21,35 @@
   </head>
 
   <body>
-    <div class="wrapper">
-      <div class="contain-to-grid fixed">
-	<nav class="top-bar" data-topbar>
-	  <ul class="title-area">
-	    <li class="name">
-	      <h1><a href="/index.html">Ram Raghunathan</a></h1>
-	    </li>
-	    <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
-	  </ul>
-
-	  <section class="top-bar-section">
-	    <ul class="right">
-	      <li><a href="/static/resume.pdf">Resume</a></li>
+    <div id="wrapper">
+      <div id="footer-wrapper">
+	<div class="contain-to-grid fixed">
+	  <nav class="top-bar" data-topbar>
+	    <ul class="title-area">
+	      <li class="name">
+		<h1><a href="/index.html">Ram Raghunathan</a></h1>
+	      </li>
+	      <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
 	    </ul>
-	  </section>
-	</nav>
-      </div>
 
-      <div class="content">
-	$body$
+	    <section class="top-bar-section">
+	      <ul class="right">
+		<li><a href="/static/resume.pdf">Resume</a></li>
+	      </ul>
+	    </section>
+	  </nav>
+	</div>
+
+	<div class="content">
+	  $body$
+	</div>
       </div>
-      <div class="push"></div>
     </div>
 
-    <footer>
-      <p><a href="/colophon.html">Colophon</a></p>
-    </footer>
+    <div id="footer">
+      <p><a href="/humans.txt"><img src="/static/img/humanstxt-transparent-color.png" /></a>
+	<a href="/colophon.html">Colophon</a></p>
+    </div>
 
     <!-- Scripts -->
     <!-- Use Google for JQuery -->
