@@ -1,9 +1,12 @@
 --------------------------------------------------------------------------------
 {-# LANGUAGE OverloadedStrings #-}
 import           Data.Monoid (mappend)
+import           Data.Time
+import           Data.Time.Clock
+import           Data.Time.Format
 import           Hakyll
+import           System.Locale
 import qualified Text.Pandoc.Options as Pandoc.Options
-
 
 --------------------------------------------------------------------------------
 config :: Configuration
@@ -47,10 +50,13 @@ main = hakyllWith config $ do
             >>= withItemBody (unixFilter "sass" ["-s", "--scss", "--compass", "--style", "compressed"])
             >>= return . fmap compressCss
 
-    -- copy humans.txt and robots.txt to web root
-    match (fromList ["humans.txt", "robots.txt"]) $ do
+    -- Generate humans.txt
+    match "humans.txt" $ do
         route   idRoute
-        compile copyFileCompiler
+        compile $ do
+          let todayCtx = field "today" (\_ -> unsafeCompiler (getCurrentTime >>= (return . (formatTime defaultTimeLocale "%F"))))
+          getResourceString
+            >>= applyAsTemplate todayCtx
 
     -- Compile static pages to web root with Pandoc
     match "posts/*" $ do

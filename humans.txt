@@ -1,6 +1,10 @@
-/* humanstxt.org */
+/* TEAM */
+Name: Ram Raghunathan
+Site: http://cs.cmu.edu/~rraghuna
+Location: Pittsburgh, PA, USA
 
 /* SITE */
-  Standards: HTML5, CSS3
-  Components: Foundation (incl. jQuery, Orbit, Reveal)
-  Software: Hakyll, Nginx, Compass & Sass, Sublime Text 2, Git, font-combinator.com
+Last update: $today$
+Standards: HTML5, CSS3
+Components: Modernizr, Foundation, jQuery
+Software: Hakyll, Compass & Sass, Emacs, Git, Google Fonts, Fontsquirrel Webfont Generator
