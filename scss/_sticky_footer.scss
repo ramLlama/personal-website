@@ -23,11 +23,11 @@ html, body {
     height: 100%;
 }
 
-#wrapper {
+#footer-wrapper-1 {
     min-height: 100%;
 }
 
-#footer-wrapper {
+#footer-wrapper-2 {
     overflow: auto;
     // must be same height as the footer
     padding-bottom: $footer-height;

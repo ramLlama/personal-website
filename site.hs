@@ -90,10 +90,31 @@ main = hakyllWith config $ do
                 >>= loadAndApplyTemplate "templates/base.html" baseCtx
                 >>= relativizeUrls
 
+
+    match "about.html" $ do
+        route idRoute
+        compile $ do
+            let baseCtx = constField "stylesheet" "/static/css/about.css" `mappend`
+                          itemCtx
+
+            getResourceBody
+                >>= loadAndApplyTemplate "templates/base.html" baseCtx
+                >>= relativizeUrls
+
     match "colophon.html" $ do
         route idRoute
         compile $ do
             let baseCtx = constField "stylesheet" "/static/css/colophon.css" `mappend`
+                          itemCtx
+
+            getResourceBody
+                >>= loadAndApplyTemplate "templates/base.html" baseCtx
+                >>= relativizeUrls
+
+    match "contact.html" $ do
+        route idRoute
+        compile $ do
+            let baseCtx = constField "stylesheet" "/static/css/contact.css" `mappend`
                           itemCtx
 
             getResourceBody

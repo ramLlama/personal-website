@@ -1,25 +1,29 @@
-@import "sticky_footer";
+@import "my_mixins";
 @import "my_settings";
 @import "foundation";
+@import "sticky_footer";
 
-// Global Constraints ---------------------------------------------------
-#wrapper {
-    @media #{$small} {
-        @include grid-row;
+// Global Setup ---------------------------------------------------------
+body {
+    background-image: url("../img/body_background.png");
+}
+
+#footer-wrapper-1 {
+    @include grid-row();
+    @include background-opacity(#e0e0e0, 0.75);
+
+    #footer-wrapper-2 {
+	#top-bar-gutter {
+	    height: 1em;
+	    width: 100%;
+	}
+
+	#content-wrapper {
+	    padding-left: 1em;
+	    padding-right: 1em;
+	}
     }
 }
-
-.content {
-    padding-top: $topbar-height + 10px;
-}
-
-// Global classes -------------------------------------------------------
-.img-center {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-}
-
 
 #footer {
     background-image: url("../img/footer_background.png");
@@ -31,4 +35,18 @@
         max-width: none;
     	color: $color-blue;
     }
+}
+
+
+// Global classes -------------------------------------------------------
+.img-center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+// logotype for top bar -------------------------------------------------
+.top-bar .name h1.logotype {
+    font-family: 'Dancing Script', serif;
+    font-size: $h3-font-size;
 }

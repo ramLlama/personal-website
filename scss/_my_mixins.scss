@@ -1,0 +1,10 @@
+@mixin background-opacity($color, $opacity: 0.0) {
+    background: $color; /* The Fallback */
+    background: rgba($color, $opacity);
+}
+
+@mixin standard-grid {
+    @media #{$medium-up} {
+	@include grid-column(8, true, true);
+    }
+}

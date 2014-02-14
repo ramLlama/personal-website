@@ -1,7 +1,62 @@
 // Fonts -----------------------------------------------------------
-// Use Google for Fonts
-@import url('http://fonts.googleapis.com/css?family=Merriweather|Vollkorn');
+/**
+ * I have the @font-face directives here in case Google goes
+ * down. Until then, though, Google is the better option
+ */
 
+/******************/
+/* Dancing Script */
+/******************/
+@import url('http://fonts.googleapis.com/css?family=Dancing+Script:700');
+/* @font-face { */
+/*     font-family: 'Dancing Script'; */
+/*     src: url('/static/fonts/Dancing Script/dancingscript-bold-webfont.eot'); */
+/*     src: url('/static/fonts/Dancing Script/dancingscript-bold-webfont.eot?#iefix') format('embedded-opentype'), */
+/*          url('/static/fonts/Dancing Script/dancingscript-bold-webfont.woff') format('woff'), */
+/*          url('/static/fonts/Dancing Script/dancingscript-bold-webfont.ttf') format('truetype'), */
+/*          url('/static/fonts/Dancing Script/dancingscript-bold-webfont.svg#dancing_scriptbold') format('svg'); */
+/*     font-weight: bold; */
+/*     font-style: normal; */
+/* } */
+
+/**************/
+/* Bree Serif */
+/**************/
+@import url('http://fonts.googleapis.com/css?family=Bree+Serif');
+/* @font-face { */
+/*     font-family: 'Bree Serif'; */
+/*     src: url('/static/fonts/Bree Serif/breeserif-regular-webfont.eot'); */
+/*     src: url('/static/fonts/Bree Serif/breeserif-regular-webfont.eot?#iefix') format('embedded-opentype'), */
+/*          url('/static/fonts/Bree Serif/breeserif-regular-webfont.woff') format('woff'), */
+/*          url('/static/fonts/Bree Serif/breeserif-regular-webfont.ttf') format('truetype'), */
+/*          url('/static/fonts/Bree Serif/breeserif-regular-webfont.svg#bree_serifregular') format('svg'); */
+/*     font-weight: normal; */
+/*     font-style: normal; */
+/* } */
+
+/********/
+/* Lato */
+/********/
+@import url('http://fonts.googleapis.com/css?family=Lato');
+/* @font-face { */
+/*     font-family: 'Lato'; */
+/*     src: url('/static/fonts/Lato/lato-regular-webfont.eot'); */
+/*     src: url('/static/fonts/Lato/lato-regular-webfont.eot?#iefix') format('embedded-opentype'), */
+/*          url('/static/fonts/Lato/lato-regular-webfont.woff') format('woff'), */
+/*          url('/static/fonts/Lato/lato-regular-webfont.ttf') format('truetype'), */
+/*          url('/static/fonts/Lato/lato-regular-webfont.svg#latoregular') format('svg'); */
+/*     font-weight: normal; */
+/*     font-style: normal; */
+/* } */
+
+/******************/
+/* Rejected Fonts */
+/******************/
+
+/****************/
+/* Merriweather */
+/****************/
+/* @import url('http://fonts.googleapis.com/css?family=Merriweather'); */
 /* @font-face { */
 /*     font-family: 'Merriweather'; */
 /*     src: url('/static/fonts/Merriweather/merriweather_bold_webfont.eot'); */
@@ -9,7 +64,7 @@
 /*          url('/static/fonts/Merriweather/merriweather_bold_webfont.woff') format('woff'), */
 /*          url('/static/fonts/Merriweather/merriweather_bold_webfont.ttf') format('truetype'), */
 /*          url('/static/fonts/Merriweather/merriweather_bold_webfont.svg#merriweatherbold') format('svg'); */
-/*     font-weight: normal; */
+/*     font-weight: bold; */
 /*     font-style: normal; */
 /* } */
 
@@ -21,7 +76,7 @@
 /*          url('/static/fonts/Merriweather/merriweather_italic_webfont.ttf') format('truetype'), */
 /*          url('/static/fonts/Merriweather/merriweather_italic_webfont.svg#merriweatheritalic') format('svg'); */
 /*     font-weight: normal; */
-/*     font-style: normal; */
+/*     font-style: italic; */
 /* } */
 
 /* @font-face { */
@@ -35,6 +90,10 @@
 /*     font-style: normal; */
 /* } */
 
+/************/
+/* Vollkorn */
+/************/
+/* @import url('http://fonts.googleapis.com/css?family=Vollkorn'); */
 /* @font-face { */
 /*     font-family: 'Vollkorn'; */
 /*     src: url('/static/fonts/Vollkorn/vollkorn_bold_webfont.eot'); */
@@ -42,7 +101,7 @@
 /*          url('/static/fonts/Vollkorn/vollkorn_bold_webfont.woff') format('woff'), */
 /*          url('/static/fonts/Vollkorn/vollkorn_bold_webfont.ttf') format('truetype'), */
 /*          url('/static/fonts/Vollkorn/vollkorn_bold_webfont.svg#vollkornbold') format('svg'); */
-/*     font-weight: normal; */
+/*     font-weight: bold; */
 /*     font-style: normal; */
 /* } */
 
@@ -54,7 +113,7 @@
 /*          url('/static/fonts/Vollkorn/vollkorn_italic_webfont.ttf') format('truetype'), */
 /*          url('/static/fonts/Vollkorn/vollkorn_italic_webfont.svg#vollkornitalic') format('svg'); */
 /*     font-weight: normal; */
-/*     font-style: normal; */
+/*     font-style: italic; */
 /* } */
 
 /* @font-face { */
@@ -66,4 +125,45 @@
 /*          url('/static/fonts/Vollkorn/vollkorn_regular_webfont.svg#vollkornregular') format('svg'); */
 /*     font-weight: normal; */
 /*     font-style: normal; */
+/* } */
+
+/**********/
+/* Oswald */
+/**********/
+/* @import url('http://fonts.googleapis.com/css?family=Oswald'); */
+/* @font-face { */
+/*     font-family: 'Oswald'; */
+/*     src: url('/static/fonts/Oswald/oswald-regular-webfont.eot'); */
+/*     src: url('/static/fonts/Oswald/oswald-regular-webfont.eot?#iefix') format('embedded-opentype'), */
+/*          url('/static/fonts/Oswald/oswald-regular-webfont.woff') format('woff'), */
+/*          url('/static/fonts/Oswald/oswald-regular-webfont.ttf') format('truetype'), */
+/*          url('/static/fonts/Oswald/oswald-regular-webfont.svg#oswaldregular') format('svg'); */
+/*     font-weight: normal; */
+/*     font-style: normal; */
+/* } */
+
+/*****************/
+/* Hattori Hanzo */
+/*****************/
+/* No Google Webfont for this yet. =( */
+/* @font-face { */
+/*     font-family: 'Hattori Hanzo'; */
+/*     src: url('/static/fonts/Hattori Hanzo/Hattori_Hanzo-webfont.eot'); */
+/*     src: url('/static/fonts/Hattori Hanzo/Hattori_Hanzo-webfont.eot?#iefix') format('embedded-opentype'), */
+/*          url('/static/fonts/Hattori Hanzo/Hattori_Hanzo-webfont.woff') format('woff'), */
+/*          url('/static/fonts/Hattori Hanzo/Hattori_Hanzo-webfont.ttf') format('truetype'), */
+/*          url('/static/fonts/Hattori Hanzo/Hattori_Hanzo-webfont.svg#hattori_hanzolight') format('svg'); */
+/*     font-weight: normal; */
+/*     font-style: normal; */
+/* } */
+
+/* @font-face { */
+/*     font-family: 'Hattori Hanzo'; */
+/*     src: url('/static/fonts/Hattori Hanzo/Hattori_Hanzo_Italic-webfont.eot'); */
+/*     src: url('/static/fonts/Hattori Hanzo/Hattori_Hanzo_Italic-webfont.eot?#iefix') format('embedded-opentype'), */
+/*          url('/static/fonts/Hattori Hanzo/Hattori_Hanzo_Italic-webfont.woff') format('woff'), */
+/*          url('/static/fonts/Hattori Hanzo/Hattori_Hanzo_Italic-webfont.ttf') format('truetype'), */
+/*          url('/static/fonts/Hattori Hanzo/Hattori_Hanzo_Italic-webfont.svg#hattori_hanzolight_italic') format('svg'); */
+/*     font-weight: normal; */
+/*     font-style: italic; */
 /* } */

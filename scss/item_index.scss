@@ -1,5 +1,5 @@
 @import "base";
 
 .item-index {
-    @include grid-row;
+    @include grid-row();
 }

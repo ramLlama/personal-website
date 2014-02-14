@@ -1,59 +1,18 @@
 @import "base";
 
-// Business Card Information ------------------------
-.business-card {
+.content {
+    @include grid-row();
 
-    @media #{$medium-up} {
-	@include grid-row;
+    ul {
+	list-style-type: none;
+	margin: 0px;
+	padding: 0px;
+	text-align: center;
 
-	margin-top: 10px;
-	margin-bottom: 10px;
-    }
-
-    .text {
-	@media #{$medium-up} {
-	    @include grid-column(8);
-	}
-
-	ul {
-	    list-style-type: none;
-	    margin: 0px;
-	    padding: 0px;
-
-	    li {
-		@include grid-row;
-	    }
-
-	    @media #{$small-only} {
-		#name {
-		    text-align: center;
-		}
-	    }
-
-	    @media #{$medium-up} {
-		#picture-for-small {
-		    display: none;
-		}
+	li {
+	    #lede-image {
+		border-radius: 20px;
 	    }
 	}
-    }
-
-    #picture-for-medium-up {
-	@media #{$small-only} {
-	    display: none;
-	}
-
-	@media #{$medium-up} {
-	    @include grid-column(4);
-	}
-    }
-}
-
-// Synopsis of site data ----------------------------
-.synopsis {
-    @include grid-row;
-
-    @media #{$medium-up} {
-	@include grid-column(8, false, true);
     }
 }

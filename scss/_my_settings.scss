@@ -1,20 +1,19 @@
 @import "fonts";
 
 // color palette ----------------------------------------------------
-// from https://kuler.adobe.com/1944mustang-color-theme-4817/ -------
-$color-black: #000000;
-$color-blue: #263248;
-$color-grey: #7E8AA2;
-$color-white: #FFFFFF;
-$color-orange: #FF9800;
+$color-purple: #2F00FF;
+$color-darkpurple: #0A0038;
+$color-darklavender: #9E88FF;
+$color-lavender: #D7D4FF;
+$color-red: #B2004D;
+$color-blue: #0096B2;
 
 // Foundation Settings overrides ------------------------------------
-$topbar-bg: $color-blue;
-$primary-color: $color-black;
-$secondary-color: $color-blue;
-$body-font-color: $color-black;
-$anchor-font-color: $color-blue;
-$anchor-font-color-hover: darken($anchor-font-color, 5%);
+$topbar-bg: $color-darkpurple;
+$primary-color: $color-purple;
+$secondary-color: $color-lavender;
+$alert-color: $color-red;
+$success-color: $color-blue;
 
-$header-font-family: Vollkorn, Helvetica, Arial, sans-serif;
-$body-font-family: Merriweather, Helvetica, Arial, sans-serif !default;
+$header-font-family: 'Bree Serif', serif !default;
+$body-font-family: 'Lato', sans-serif !default;
