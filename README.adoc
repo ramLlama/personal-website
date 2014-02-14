@@ -1,0 +1,31 @@
+personal-website.git README
+=============================
+:Author: Ram Raghunathan
+:Email: ram@llama.is
+:Date: 2014-02-14
+
+http://llama.is
+------------------
+
+Requirements
+~~~~~~~~~~~~
+
+- GHC
+- Hakyll
+- Sass
+- [Compass](http://compass-style.org/)
+
+Also Uses
+~~~~~~~~~~~
+
+- Foundation 5
+
+## Commands
+
+.How To Build
+[source,sh]
+----
+./site build
+./site rebuild
+./publish.sh <location>
+----
