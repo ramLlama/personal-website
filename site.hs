@@ -82,7 +82,8 @@ main = hakyllWith config $ do
                            "publications"
                            (\_ -> publicationList $ fmap (take 3) . recentFirst)
 
-                baseCtx = constField "stylesheet" "/static/css/index.css" `mappend`
+                baseCtx = constField "isIndex" "<SHOULDN'T BE DISPLAYED!>" `mappend`
+                          constField "stylesheet" "/static/css/index.css" `mappend`
                           itemCtx
 
             getResourceBody

@@ -10,6 +10,18 @@
 	text-align: center;
 
 	li {
+	    h1.logotype {
+		font-family: 'Dancing Script', serif;
+
+		@media #{$small-only} {
+		    font-size: rem-calc(50);
+		}
+
+		@media #{$medium-up} {
+		    font-size: rem-calc(75);
+		}
+	    }
+
 	    #lede-image {
 		border-radius: 20px;
 	    }
