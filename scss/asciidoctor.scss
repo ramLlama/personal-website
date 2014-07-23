@@ -1,0 +1,14 @@
+@import "settings/asciidoctor_theme";
+@import "asciidoctor_components/asciidoc";
+@import "asciidoctor_components/awesome-icons";
+
+// Center header text for better look
+#header {
+    text-align: center;
+}
+
+// fix h1 overridden by foundation in article environment
+h1 {
+    font-size: $h1-font-size;
+    margin: 0;
+}
