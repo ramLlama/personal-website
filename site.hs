@@ -31,48 +31,52 @@ main = hakyllWith config $ do
 
     -- copy site icon to `favicon.ico`
     match "static/favicon.ico" $ do
-        route   (constRoute "favicon.ico")
-        compile copyFileCompiler
+      route   (constRoute "favicon.ico")
+      compile copyFileCompiler
 
     -- copy static files
     match "static/**" $ do
-        route   idRoute
-        compile copyFileCompiler
+      route   idRoute
+      compile copyFileCompiler
 
     -- copy js
     match "js/**" $ do
       route idRoute
       compile copyFileCompiler
 
-    match (fromRegex "^scss/[^_][^\\.]*\\.scss$") $ do
-        route   $ gsubRoute "scss/" (const "static/css/") `composeRoutes` setExtension "css"
-        compile $ getResourceString
-            >>= withItemBody (unixFilter "sass" ["-s", "--scss", "--compass", "--style", "compressed"])
-            >>= return . fmap compressCss
+    match (fromRegex "^scss/[^_\\./][^\\./]*\\.scss$") $ do
+      route   $ gsubRoute "scss/" (const "static/css/") `composeRoutes` setExtension "css"
+      compile $ getResourceString
+        >>= withItemBody (unixFilter "sass" ["-s", "--scss", "--compass", "--style", "compressed"])
+        >>= return . fmap compressCss
 
     -- Generate humans.txt
     match "humans.txt" $ do
-        route   idRoute
-        compile $ do
-          let todayCtx = field "today" (\_ -> unsafeCompiler (getCurrentTime >>= (return . (formatTime defaultTimeLocale "%F"))))
-          getResourceString
-            >>= applyAsTemplate todayCtx
+      route   idRoute
+      compile $ do
+        let todayCtx = field "today" (\_ -> unsafeCompiler (getCurrentTime >>= (return . (formatTime defaultTimeLocale "%F"))))
+        getResourceString
+          >>= applyAsTemplate todayCtx
 
-    -- Create post contents
-    match "posts/**.adoc" $ do
-        route $ setExtension "html"
-        compile $ do
-          let baseCtx = constField "stylesheet" "/static/css/post.css" `mappend`
-                        itemCtx
-          getResourceString
-            >>= withItemBody (unixFilter "asciidoctor" ["--out-file", "-", "--attribute", "stylesheet!,notitle", "-"])
-            >>= loadAndApplyTemplate "templates/post.html"    itemCtx
-            >>= loadAndApplyTemplate "templates/base.html" baseCtx
-            >>= relativizeUrls
+    -- Create posts
+    match "posts/**.adoc" $ version "html" $ do
+      route $ setExtension "html"
+      compile $ do
+        let baseCtx = constField "stylesheet" "/static/css/post.css" `mappend`
+                      itemCtx
+        getResourceString
+          >>= withItemBody (unixFilter "asciidoctor" ["--out-file", "-", "-T", "./asciidoctor-backends/html5-contentonly", "--attribute", "stylesheet!", "-"])
+          >>= loadAndApplyTemplate "templates/post.html"    itemCtx
+          >>= loadAndApplyTemplate "templates/base.html" baseCtx
+          >>= relativizeUrls
+
+    match "posts/**.adoc" $ version "adoc" $ do
+      route idRoute
+      compile copyFileCompiler
 
     -- Copy over static assets of post
-    match "posts/**" $ do
-      route $ idRoute
+    match ("posts/**" .&&. (complement (fromRegex "posts/.*\\.metadata"))) $ do
+      route idRoute
       compile copyFileCompiler
 
     match "index.html" $ do
@@ -140,50 +144,13 @@ main = hakyllWith config $ do
             baseCtx =
               constField "title" "Posts" `mappend`
               constField "description" "Previous posts on cs.cmu.edu/~rraghuna" `mappend`
-              constField "stylesheet" "/static/css/item_index.css" `mappend`
+              constField "stylesheet" "/static/css/post_index.css" `mappend`
               defaultContext
         makeItem ""
           >>= loadAndApplyTemplate "templates/item_index.html" postIndexCtx
           >>= loadAndApplyTemplate "templates/base.html" baseCtx
           >>= relativizeUrls
-
-    create ["publications-index"] $ do
-      route (constRoute "publications/index.html")
-      compile $ do
-        let publicationIndexCtx =
-              constField "page-title" "Publications" `mappend`
-              -- field "items" (\_ -> publicationList recentFirst) `mappend`
-              constField "items" "Nothing yet!" `mappend`
-              defaultContext
-
-            baseCtx =
-              constField "title" "Publications" `mappend`
-              constField "description" "Publications findable on cs.cmu.edu/~rraghuna" `mappend`
-              constField "stylesheet" "/static/css/item_index.css" `mappend`
-              defaultContext
-        makeItem ""
-          >>= loadAndApplyTemplate "templates/item_index.html" publicationIndexCtx
-          >>= loadAndApplyTemplate "templates/base.html" baseCtx
-          >>= relativizeUrls
-
-    match "miscellaneous/index_items.html" $ do
-      route (constRoute "miscellaneous/index.html")
-      compile $ do
-        let miscellaneousIndexCtx =
-              constField "page-title" "Miscellaneous" `mappend`
-              bodyField "items" `mappend`
-              defaultContext
-
-            baseCtx =
-              constField "title" "Miscellaneous" `mappend`
-              constField "description" "Miscellaneous items on cs.cmu.edu/~rraghuna" `mappend`
-              constField "stylesheet" "/static/css/item_index.css" `mappend`
-              defaultContext
-        getResourceBody
-          >>= loadAndApplyTemplate "templates/item_index.html" miscellaneousIndexCtx
-          >>= loadAndApplyTemplate "templates/base.html" baseCtx
-          >>= relativizeUrls
-
+          >>= removeIndexHtml
 
 --------------------------------------------------------------------------------
 itemCtx :: Context String
@@ -195,7 +162,7 @@ itemCtx =
 --------------------------------------------------------------------------------
 itemList :: Pattern -> Identifier -> ([Item String] -> Compiler [Item String]) -> Compiler String
 itemList glob template sortFilter = do
-    posts   <- sortFilter =<< loadAll glob
+    posts   <- sortFilter =<< loadAll (glob .&&. hasVersion "html")
     itemTpl <- loadBody template
     list    <- applyTemplateList itemTpl itemCtx posts
     return list
@@ -205,3 +172,9 @@ postList sortFilter = itemList "posts/**/index.adoc" "templates/post_listing.htm
 
 publicationList :: ([Item String] -> Compiler [Item String]) -> Compiler String
 publicationList sortFilter = itemList "publications/*" "templates/publication_listing.html" sortFilter
+
+--------------------------------------------------------------------------------
+removeIndexHtml :: Item String -> Compiler (Item String)
+removeIndexHtml item = return $ fmap cuttail item
+  where
+        cuttail = withUrls $ replaceAll "/index.html" (const "/")
