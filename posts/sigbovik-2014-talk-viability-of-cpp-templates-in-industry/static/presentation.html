@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>SIGBOVIK 2014 Talk: Viability of C++ Templates in Industry</title>
+    <link rel="stylesheet" href="/static/lib/reveal.js/css/reveal.min.css">
+    <link rel="stylesheet" href="/static/lib/reveal.js/css/theme/default.css" id="theme">
+    <!--Add support for earlier versions of Internet Explorer -->
+    <!--[if lt IE 9]>
+    <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+    <!-- For syntax highlighting -->
+    <link rel="stylesheet" href="/static/lib/reveal.js/lib/css/zenburn.css">
+  </head>
+
+  <body>
+    <!-- Wrap the entire slide show in a div using the "reveal" class. -->
+    <div class="reveal">
+      <!-- Wrap all slides in a single "slides" class -->
+      <div class="slides">
+
+	<!-- ALL SLIDES GO HERE -->
+	<!-- Each section element contains an individual slide -->
+	<section>
+	  <h2>Viability of C++ Templates in Industry</h2>
+	  <h3>An Anecdotal Study</h3>
+	  <h4>Ram Raghunathan</h4>
+	</section>
+
+	<section>
+	  <h2>Performant</h2>
+	  <h1>Software</h1>
+	  <h2>Requires Peformant</h2>
+	  <h1>Languages</h1>
+	</section>
+
+	<section>
+	  <h1>C++</h1>
+	</section>
+
+	<section>
+	  <h2>Faster than Chuck Norris</h2>
+	  <img src="./chucknorris.jpg" />
+	</section>
+
+	<section>
+	  <h2>OOP</h2>
+	  <h1>is slow!</h1>
+	</section>
+
+	<section>
+	  <h2>VTables and all that jazz</h2>
+	</section>
+
+	<section>
+	  <h1>C++ Templates</h1>
+	  <h2>to the rescue!</h2>
+	</section>
+
+	<section>
+	  <h1>CRTP</h1>
+	  <h2>Curiously Recursive Template Pattern</h2>
+	</section>
+
+	<section>
+	  <h2>Compile-Time Polymorphism!</h2>
+	</section>
+	<section>
+	  <pre><code data-trim>
+template&lt;class Derived&gt;
+class Base {
+ public:
+  int id(void) {
+    return static_cast&lt;Derived*&gt;(this)-&gt;id_implementation();
+  }
+};
+
+class One : public Base&lt;One&gt; {
+ public:
+  int id_implementation(void) {
+    return 1;
+  }
+};
+	  </code></pre>
+	</section>
+
+	<section>
+	  <h1>SFINAE</h1>
+	  <h2>Substituion Failure Is Not An Error</h2>
+	</section>
+
+	<section>
+	  <h2>Self-Explanatory</h2>
+	</section>
+
+	<section>
+	  <h3>Compile-Time Conditional Code-Paths!</h3>
+	</section>
+
+	<section>
+	  <pre><code data-trim>
+template &lt;typename T&gt;
+class HasTypedefFoobar {
+ public:
+  typedef char yes[1];
+  typedef char no[2];
+
+  template &lt;typename C&gt;
+  static yes& test(typename C::foobar*);
+
+  template &lt;typename&gt;
+  static no& test(...);
+
+  static const bool value = (sizeof(test&lt;T&gt;(0)) == sizeof(yes));
+};
+	  </code></pre>
+	</section>
+
+	<section>
+	  <h2>Clear Error Messages!</h2>
+	</section>
+
+	<section>
+	  <pre><code data-trim>
+#include &lt;vector&gt;
+#include &lt;algorithm&gt;
+int main()
+{
+  int a;
+  std::vector&lt;std::vector &lt;int&gt; &gt; v;
+  std::vector&lt;std::vector &lt;int&gt; &gt;::const_iterator it =
+      std::find( v.begin(), v.end(), a );
+}
+	  </code></pre>
+	</section>
+
+	<section>
+	  <pre><code>
+In file included from /usr/include/c++/4.6/algorithm:63:0,
+                 from emsg.cpp:2:
+		 /usr/include/c++/4.6/bits/stl_algo.h: In function ‘_RandomAccessIterator std::__find(_RandomAccessIterator, _RandomAccessIterator, const _Tp&, std::random_access_iterator_tag) [with _RandomAccessIterator = __gnu_cxx::__normal_iterator&lt;std::vector&lt;int&gt;*, std::vector&lt;std::vector&lt;int&gt; &gt; &gt;, _Tp = int]’:
+		 /usr/include/c++/4.6/bits/stl_algo.h:4404:45:   instantiated from ‘_IIter std::find(_IIter, _IIter, const _Tp&) [with _IIter = __gnu_cxx::__normal_iterator&lt;std::vector&lt;int&gt;*, std::vector&lt;std::vector&lt;int&gt; &gt; &gt;, _Tp = int]’
+		 emsg.cpp:7:90:   instantiated from here
+		 /usr/include/c++/4.6/bits/stl_algo.h:162:4: error: no match for ‘operator==’ in ‘__first.__gnu_cxx::__normal_iterator&lt;_Iterator, _Container&gt;::operator* [with _Iterator = std::vector&lt;int&gt;*, _Container = std::vector&lt;std::vector&lt;int&gt; &gt;, __gnu_cxx::__normal_iterator&lt;_Iterator, _Container&gt;::reference = std::vector&lt;int&gt;&]() == __val’
+		 /usr/include/c++/4.6/bits/stl_algo.h:162:4: note: candidates are:
+		 /usr/include/c++/4.6/bits/stl_pair.h:201:5: note: template&lt;class _T1, class _T2&gt; bool std::operator==(const std::pair&lt;_T1, _T2&gt;&, const std::pair&lt;_T1, _T2&gt;&)
+		 /usr/include/c++/4.6/bits/stl_iterator.h:285:5: note: template&lt;class _Iterator&gt; bool std::operator==(const std::reverse_iterator&lt;_Iterator&gt;&, const std::reverse_iterator&lt;_Iterator&gt;&)
+		 /usr/include/c++/4.6/bits/stl_iterator.h:335:5: note: template&lt;class _IteratorL, class _IteratorR&gt; bool std::operator==(const std::reverse_iterator&lt;_IteratorL&gt;&, const std::reverse_iterator&lt;_IteratorR&gt;&)
+		 /usr/include/c++/4.6/bits/allocator.h:122:5: note: template&lt;class _T1, class _T2&gt; bool std::operator==(const std::allocator&lt;_T1&gt;&, const std::allocator&lt;_T2&gt;&)
+		 /usr/include/c++/4.6/bits/allocator.h:127:5: note: template&lt;class _Tp&gt; bool std::operator==(const std::allocator&lt;_Tp1&gt;&, const std::allocator&lt;_Tp1&gt;&)
+		 /usr/include/c++/4.6/bits/stl_vector.h:1273:5: note: template&lt;class _Tp, class _Alloc&gt; bool std::operator==(const std::vector&lt;_Tp, _Alloc&gt;&, const std::vector&lt;_Tp, _Alloc&gt;&)
+		 /usr/include/c++/4.6/ext/new_allocator.h:123:5: note: template&lt;class _Tp&gt; bool __gnu_cxx::operator==(const __gnu_cxx::new_allocator&lt;_Tp&gt;&, const __gnu_cxx::new_allocator&lt;_Tp&gt;&)
+		 /usr/include/c++/4.6/bits/stl_iterator.h:805:5: note: template&lt;class _Iterator, class _Container&gt; bool __gnu_cxx::operator==(const __gnu_cxx::__normal_iterator&lt;_Iterator, _Container&gt;&, const __gnu_cxx::__normal_iterator&lt;_Iterator, _Container&gt;&)
+		 /usr/include/c++/4.6/bits/stl_iterator.h:799:5: note: template&lt;class _IteratorL, class _IteratorR, class _Container&gt; bool __gnu_cxx::operator==(const __gnu_cxx::__normal_iterator&lt;_IteratorL, _Container&gt;&, const __gnu_cxx::__normal_iterator&lt;_IteratorR, _Container&gt;&)
+		 /usr/include/c++/4.6/bits/stl_algo.h:4404:45:   instantiated from ‘_IIter std::find(_IIter, _IIter, const _Tp&) [with _IIter = __gnu_cxx::__normal_iterator&lt;std::vector&lt;int&gt;*, std::vector&lt;std::vector&lt;int&gt; &gt; &gt;, _Tp = int]’
+		 emsg.cpp:7:90:   instantiated from here
+		 /usr/include/c++/4.6/bits/stl_algo.h:166:4: error: no match for ‘operator==’ in ‘__first.__gnu_cxx::__normal_iterator&lt;_Iterator, _Container&gt;::operator* [with _Iterator = std::vector&lt;int&gt;*, _Container = std::vector&lt;std::vector&lt;int&gt; &gt;, __gnu_cxx::__normal_iterator&lt;_Iterator, _Container&gt;::reference = std::vector&lt;int&gt;&]() == __val’
+		 /usr/include/c++/4.6/bits/stl_algo.h:166:4: note: candidates are:
+		 /usr/include/c++/4.6/bits/stl_pair.h:201:5: note: template&lt;class _T1, class _T2&gt; bool std::operator==(const std::pair&lt;_T1, _T2&gt;&, const std::pair&lt;_T1, _T2&gt;&)
+		 /usr/include/c++/4.6/bits/stl_iterator.h:285:5: note: template&lt;class _Iterator&gt; bool std::operator==(const std::reverse_iterator&lt;_Iterator&gt;&, const std::reverse_iterator&lt;_Iterator&gt;&)
+		 /usr/include/c++/4.6/bits/stl_iterator.h:335:5: note: template&lt;class _IteratorL, class _IteratorR&gt; bool std::operator==(const std::reverse_iterator&lt;_IteratorL&gt;&, const std::reverse_iterator&lt;_IteratorR&gt;&)
+		 /usr/include/c++/4.6/bits/allocator.h:122:5: note: template&lt;class _T1, class _T2&gt; bool std::operator==(const std::allocator&lt;_T1&gt;&, const std::allocator&lt;_T2&gt;&)
+		 /usr/include/c++/4.6/bits/allocator.h:127:5: note: template&lt;class _Tp&gt; bool std::operator==(const std::allocator&lt;_Tp1&gt;&, const std::allocator&lt;_Tp1&gt;&)
+		 /usr/include/c++/4.6/bits/stl_vector.h:1273:5: note: template&lt;class _Tp, class _Alloc&gt; bool std::operator==(const std::vector&lt;_Tp, _Alloc&gt;&, const std::vector&lt;_Tp, _Alloc&gt;&)
+		 /usr/include/c++/4.6/ext/new_allocator.h:123:5: note: template&lt;class _Tp&gt; bool __gnu_cxx::operator==(const __gnu_cxx::new_allocator&lt;_Tp&gt;&, const __gnu_cxx::new_allocator&lt;_Tp&gt;&)
+		 /usr/include/c++/4.6/bits/stl_iterator.h:805:5: note: template&lt;class _Iterator, class _Container&gt; bool __gnu_cxx::operator==(const __gnu_cxx::__normal_iterator&lt;_Iterator, _Container&gt;&, const __gnu_cxx::__normal_iterator&lt;_Iterator, _Container&gt;&)
+		 /usr/include/c++/4.6/bits/stl_iterator.h:799:5: note: template&lt;class _IteratorL, class _IteratorR, class _Container&gt; bool __gnu_cxx::operator==(const __gnu_cxx::__normal_iterator&lt;_IteratorL, _Container&gt;&, const __gnu_cxx::__normal_iterator&lt;_IteratorR, _Container&gt;&)
+		 /usr/include/c++/4.6/bits/stl_algo.h:170:4: error: no match for ‘operator==’ in ‘__first.__gnu_cxx::__normal_iterator&lt;_Iterator, _Container&gt;::operator* [with _Iterator = std::vector&lt;int&gt;*, _Container = std::vector&lt;std::vector&lt;int&gt; &gt;, __gnu_cxx::__normal_iterator&lt;_Iterator, _Container&gt;::reference = std::vector&lt;int&gt;&]() == __val’
+		 /usr/include/c++/4.6/bits/stl_algo.h:170:4: note: candidates are:
+		 /usr/include/c++/4.6/bits/stl_pair.h:201:5: note: template&lt;class _T1, class _T2&gt; bool std::operator==(const std::pair&lt;_T1, _T2&gt;&, const std::pair&lt;_T1, _T2&gt;&)
+		 /usr/include/c++/4.6/bits/stl_iterator.h:285:5: note: template&lt;class _Iterator&gt; bool std::operator==(const std::reverse_iterator&lt;_Iterator&gt;&, const std::reverse_iterator&lt;_Iterator&gt;&)
+		 /usr/include/c++/4.6/bits/stl_iterator.h:335:5: note: template&lt;class _IteratorL, class _IteratorR&gt; bool std::operator==(const std::reverse_iterator&lt;_IteratorL&gt;&, const std::reverse_iterator&lt;_IteratorR&gt;&)
+		 /usr/include/c++/4.6/bits/allocator.h:122:5: note: template&lt;class _T1, class _T2&gt; bool std::operator==(const std::allocator&lt;_T1&gt;&, const std::allocator&lt;_T2&gt;&)
+		 /usr/include/c++/4.6/bits/allocator.h:127:5: note: template&lt;class _Tp&gt; bool std::operator==(const std::allocator&lt;_Tp1&gt;&, const std::allocator&lt;_Tp1&gt;&)
+		 /usr/include/c++/4.6/bits/stl_vector.h:1273:5: note: template&lt;class _Tp, class _Alloc&gt; bool std::operator==(const std::vector&lt;_Tp, _Alloc&gt;&, const std::vector&lt;_Tp, _Alloc&gt;&)
+		 /usr/include/c++/4.6/ext/new_allocator.h:123:5: note: template&lt;class _Tp&gt; bool __gnu_cxx::operator==(const __gnu_cxx::new_allocator&lt;_Tp&gt;&, const __gnu_cxx::new_allocator&lt;_Tp&gt;&)
+		 /usr/include/c++/4.6/bits/stl_iterator.h:805:5: note: template&lt;class _Iterator, class _Container&gt; bool __gnu_cxx::operator==(const __gnu_cxx::__normal_iterator&lt;_Iterator, _Container&gt;&, const __gnu_cxx::__normal_iterator&lt;_Iterator, _Container&gt;&)
+		 /usr/include/c++/4.6/bits/stl_iterator.h:799:5: note: template&lt;class _IteratorL, class _IteratorR, class _Container&gt; bool __gnu_cxx::operator==(const __gnu_cxx::__normal_iterator&lt;_IteratorL, _Container&gt;&, const __gnu_cxx::__normal_iterator&lt;_IteratorR, _Container&gt;&)
+		 /usr/include/c++/4.6/bits/stl_algo.h:174:4: error: no match for ‘operator==’ in ‘__first.__gnu_cxx::__normal_iterator&lt;_Iterator, _Container&gt;::operator* [with _Iterator = std::vector&lt;int&gt;*, _Container = std::vector&lt;std::vector&lt;int&gt; &gt;, __gnu_cxx::__normal_iterator&lt;_Iterator, _Container&gt;::reference = std::vector&lt;int&gt;&]() == __val’
+		 /usr/include/c++/4.6/bits/stl_algo.h:174:4: note: candidates are:
+		 /usr/include/c++/4.6/bits/stl_pair.h:201:5: note: template&lt;class _T1, class _T2&gt; bool std::operator==(const std::pair&lt;_T1, _T2&gt;&, const std::pair&lt;_T1, _T2&gt;&)
+		 /usr/include/c++/4.6/bits/stl_iterator.h:285:5: note: template&lt;class _Iterator&gt; bool std::operator==(const std::reverse_iterator&lt;_Iterator&gt;&, const std::reverse_iterator&lt;_Iterator&gt;&)
+		 /usr/include/c++/4.6/bits/stl_iterator.h:335:5: note: template&lt;class _IteratorL, class _IteratorR&gt; bool std::operator==(const std::reverse_iterator&lt;_IteratorL&gt;&, const std::reverse_iterator&lt;_IteratorR&gt;&)
+		 /usr/include/c++/4.6/bits/allocator.h:122:5: note: template&lt;class _T1, class _T2&gt; bool std::operator==(const std::allocator&lt;_T1&gt;&, const std::allocator&lt;_T2&gt;&)
+		 /usr/include/c++/4.6/bits/allocator.h:127:5: note: template&lt;class _Tp&gt; bool std::operator==(const std::allocator&lt;_Tp1&gt;&, const std::allocator&lt;_Tp1&gt;&)
+		 /usr/include/c++/4.6/bits/stl_vector.h:1273:5: note: template&lt;class _Tp, class _Alloc&gt; bool std::operator==(const std::vector&lt;_Tp, _Alloc&gt;&, const std::vector&lt;_Tp, _Alloc&gt;&)
+		 /usr/include/c++/4.6/ext/new_allocator.h:123:5: note: template&lt;class _Tp&gt; bool __gnu_cxx::operator==(const __gnu_cxx::new_allocator&lt;_Tp&gt;&, const __gnu_cxx::new_allocator&lt;_Tp&gt;&)
+		 /usr/include/c++/4.6/bits/stl_iterator.h:805:5: note: template&lt;class _Iterator, class _Container&gt; bool __gnu_cxx::operator==(const __gnu_cxx::__normal_iterator&lt;_Iterator, _Container&gt;&, const __gnu_cxx::__normal_iterator&lt;_Iterator, _Container&gt;&)
+		 /usr/include/c++/4.6/bits/stl_iterator.h:799:5: note: template&lt;class _IteratorL, class _IteratorR, class _Container&gt; bool __gnu_cxx::operator==(const __gnu_cxx::__normal_iterator&lt;_IteratorL, _Container&gt;&, const __gnu_cxx::__normal_iterator&lt;_IteratorR, _Container&gt;&)
+		 /usr/include/c++/4.6/bits/stl_algo.h:182:4: error: no match for ‘operator==’ in ‘__first.__gnu_cxx::__normal_iterator&lt;_Iterator, _Container&gt;::operator* [with _Iterator = std::vector&lt;int&gt;*, _Container = std::vector&lt;std::vector&lt;int&gt; &gt;, __gnu_cxx::__normal_iterator&lt;_Iterator, _Container&gt;::reference = std::vector&lt;int&gt;&]() == __val’
+		 /usr/include/c++/4.6/bits/stl_algo.h:182:4: note: candidates are:
+		 /usr/include/c++/4.6/bits/stl_pair.h:201:5: note: template&lt;class _T1, class _T2&gt; bool std::operator==(const std::pair&lt;_T1, _T2&gt;&, const std::pair&lt;_T1, _T2&gt;&)
+		 /usr/include/c++/4.6/bits/stl_iterator.h:285:5: note: template&lt;class _Iterator&gt; bool std::operator==(const std::reverse_iterator&lt;_Iterator&gt;&, const std::reverse_iterator&lt;_Iterator&gt;&)
+		 /usr/include/c++/4.6/bits/stl_iterator.h:335:5: note: template&lt;class _IteratorL, class _IteratorR&gt; bool std::operator==(const std::reverse_iterator&lt;_IteratorL&gt;&, const std::reverse_iterator&lt;_IteratorR&gt;&)
+		 /usr/include/c++/4.6/bits/allocator.h:122:5: note: template&lt;class _T1, class _T2&gt; bool std::operator==(const std::allocator&lt;_T1&gt;&, const std::allocator&lt;_T2&gt;&)
+		 /usr/include/c++/4.6/bits/allocator.h:127:5: note: template&lt;class _Tp&gt; bool std::operator==(const std::allocator&lt;_Tp1&gt;&, const std::allocator&lt;_Tp1&gt;&)
+		 /usr/include/c++/4.6/bits/stl_vector.h:1273:5: note: template&lt;class _Tp, class _Alloc&gt; bool std::operator==(const std::vector&lt;_Tp, _Alloc&gt;&, const std::vector&lt;_Tp, _Alloc&gt;&)
+		 /usr/include/c++/4.6/ext/new_allocator.h:123:5: note: template&lt;class _Tp&gt; bool __gnu_cxx::operator==(const __gnu_cxx::new_allocator&lt;_Tp&gt;&, const __gnu_cxx::new_allocator&lt;_Tp&gt;&)
+		 /usr/include/c++/4.6/bits/stl_iterator.h:805:5: note: template&lt;class _Iterator, class _Container&gt; bool __gnu_cxx::operator==(const __gnu_cxx::__normal_iterator&lt;_Iterator, _Container&gt;&, const __gnu_cxx::__normal_iterator&lt;_Iterator, _Container&gt;&)
+		 /usr/include/c++/4.6/bits/stl_iterator.h:799:5: note: template&lt;class _IteratorL, class _IteratorR, class _Container&gt; bool __gnu_cxx::operator==(const __gnu_cxx::__normal_iterator&lt;_IteratorL, _Container&gt;&, const __gnu_cxx::__normal_iterator&lt;_IteratorR, _Container&gt;&)
+		 /usr/include/c++/4.6/bits/stl_algo.h:186:4: error: no match for ‘operator==’ in ‘__first.__gnu_cxx::__normal_iterator&lt;_Iterator, _Container&gt;::operator* [with _Iterator = std::vector&lt;int&gt;*, _Container = std::vector&lt;std::vector&lt;int&gt; &gt;, __gnu_cxx::__normal_iterator&lt;_Iterator, _Container&gt;::reference = std::vector&lt;int&gt;&]() == __val’
+		 /usr/include/c++/4.6/bits/stl_algo.h:186:4: note: candidates are:
+		 /usr/include/c++/4.6/bits/stl_pair.h:201:5: note: template&lt;class _T1, class _T2&gt; bool std::operator==(const std::pair&lt;_T1, _T2&gt;&, const std::pair&lt;_T1, _T2&gt;&)
+		 /usr/include/c++/4.6/bits/stl_iterator.h:285:5: note: template&lt;class _Iterator&gt; bool std::operator==(const std::reverse_iterator&lt;_Iterator&gt;&, const std::reverse_iterator&lt;_Iterator&gt;&)
+		 /usr/include/c++/4.6/bits/stl_iterator.h:335:5: note: template&lt;class _IteratorL, class _IteratorR&gt; bool std::operator==(const std::reverse_iterator&lt;_IteratorL&gt;&, const std::reverse_iterator&lt;_IteratorR&gt;&)
+		 /usr/include/c++/4.6/bits/allocator.h:122:5: note: template&lt;class _T1, class _T2&gt; bool std::operator==(const std::allocator&lt;_T1&gt;&, const std::allocator&lt;_T2&gt;&)
+		 /usr/include/c++/4.6/bits/allocator.h:127:5: note: template&lt;class _Tp&gt; bool std::operator==(const std::allocator&lt;_Tp1&gt;&, const std::allocator&lt;_Tp1&gt;&)
+		 /usr/include/c++/4.6/bits/stl_vector.h:1273:5: note: template&lt;class _Tp, class _Alloc&gt; bool std::operator==(const std::vector&lt;_Tp, _Alloc&gt;&, const std::vector&lt;_Tp, _Alloc&gt;&)
+		 /usr/include/c++/4.6/ext/new_allocator.h:123:5: note: template&lt;class _Tp&gt; bool __gnu_cxx::operator==(const __gnu_cxx::new_allocator&lt;_Tp&gt;&, const __gnu_cxx::new_allocator&lt;_Tp&gt;&)
+		 /usr/include/c++/4.6/bits/stl_iterator.h:805:5: note: template&lt;class _Iterator, class _Container&gt; bool __gnu_cxx::operator==(const __gnu_cxx::__normal_iterator&lt;_Iterator, _Container&gt;&, const __gnu_cxx::__normal_iterator&lt;_Iterator, _Container&gt;&)
+		 /usr/include/c++/4.6/bits/stl_iterator.h:799:5: note: template&lt;class _IteratorL, class _IteratorR, class _Container&gt; bool __gnu_cxx::operator==(const __gnu_cxx::__normal_iterator&lt;_IteratorL, _Container&gt;&, const __gnu_cxx::__normal_iterator&lt;_IteratorR, _Container&gt;&)
+		 /usr/include/c++/4.6/bits/stl_algo.h:190:4: error: no match for ‘operator==’ in ‘__first.__gnu_cxx::__normal_iterator&lt;_Iterator, _Container&gt;::operator* [with _Iterator = std::vector&lt;int&gt;*, _Container = std::vector&lt;std::vector&lt;int&gt; &gt;, __gnu_cxx::__normal_iterator&lt;_Iterator, _Container&gt;::reference = std::vector&lt;int&gt;&]() == __val’
+		 /usr/include/c++/4.6/bits/stl_algo.h:190:4: note: candidates are:
+		 /usr/include/c++/4.6/bits/stl_pair.h:201:5: note: template&lt;class _T1, class _T2&gt; bool std::operator==(const std::pair&lt;_T1, _T2&gt;&, const std::pair&lt;_T1, _T2&gt;&)
+		 /usr/include/c++/4.6/bits/stl_iterator.h:285:5: note: template&lt;class _Iterator&gt; bool std::operator==(const std::reverse_iterator&lt;_Iterator&gt;&, const std::reverse_iterator&lt;_Iterator&gt;&)
+		 /usr/include/c++/4.6/bits/stl_iterator.h:335:5: note: template&lt;class _IteratorL, class _IteratorR&gt; bool std::operator==(const std::reverse_iterator&lt;_IteratorL&gt;&, const std::reverse_iterator&lt;_IteratorR&gt;&)
+		 /usr/include/c++/4.6/bits/allocator.h:122:5: note: template&lt;class _T1, class _T2&gt; bool std::operator==(const std::allocator&lt;_T1&gt;&, const std::allocator&lt;_T2&gt;&)
+		 /usr/include/c++/4.6/bits/allocator.h:127:5: note: template&lt;class _Tp&gt; bool std::operator==(const std::allocator&lt;_Tp1&gt;&, const std::allocator&lt;_Tp1&gt;&)
+		 /usr/include/c++/4.6/bits/stl_vector.h:1273:5: note: template&lt;class _Tp, class _Alloc&gt; bool std::operator==(const std::vector&lt;_Tp, _Alloc&gt;&, const std::vector&lt;_Tp, _Alloc&gt;&)
+		 /usr/include/c++/4.6/ext/new_allocator.h:123:5: note: template&lt;class _Tp&gt; bool __gnu_cxx::operator==(const __gnu_cxx::new_allocator&lt;_Tp&gt;&, const __gnu_cxx::new_allocator&lt;_Tp&gt;&)
+		 /usr/include/c++/4.6/bits/stl_iterator.h:805:5: note: template&lt;class _Iterator, class _Container&gt; bool __gnu_cxx::operator==(const __gnu_cxx::__normal_iterator&lt;_Iterator, _Container&gt;&, const __gnu_cxx::__normal_iterator&lt;_Iterator, _Container&gt;&)
+		 /usr/include/c++/4.6/bits/stl_iterator.h:799:5: note: template&lt;class _IteratorL, class _IteratorR, class _Container&gt; bool __gnu_cxx::operator==(const __gnu_cxx::__normal_iterator&lt;_IteratorL, _Container&gt;&, const __gnu_cxx::__normal_iterator&lt;_IteratorR, _Container&gt;&)
+	  </code></pre>
+	</section>
+
+	<section>
+	  <h2>Hugely Powerful</h2>
+	  <h3>Turing complete!</h3>
+	</section>
+
+	<section>
+	  <h2>Purely Functional</h2>
+	  <h3>Take that Haskell!</h3>
+	</section>
+
+	<section>
+	  <h2>C++11 added new features</h2>
+	  <h3>Type Inference!</h3>
+	  <h3>Lambdas!</h3>
+	</section>
+
+	<section>
+	  <h2>"C++ includes every PL feature known to man and then the kitchen sink"</h2>
+	  <h3>-Ram Raghunathan</h3>
+	</section>
+
+	<section>
+	  <h1>C++ is the future</h1>
+	</section>
+
+	<section>
+	  <h2>Reference:</h2>
+	  <h3>Author's industrial experience</h3>
+	</section>
+
+	<section>
+	  <h1>Questions?</h1>
+	</section>
+      </div>
+    </div>
+    <script src="/static/lib/reveal.js/lib/js/head.min.js"></script>
+    <script src="/static/lib/reveal.js/js/reveal.min.js"></script>
+
+    <script>
+     // Required, even if empty.
+     Reveal.initialize({
+       controls: true,
+       progress: true,
+       history: true,
+       center: true,
+
+       theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+       transition: 'linear',
+
+       width: 1024,
+       height: 768,
+
+       // Parallax scrolling
+       // parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+       // parallaxBackgroundSize: '2100px 900px',
+
+       // Optional libraries used to extend on reveal.js
+       dependencies: [
+	 { src: '/static/lib/reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+       ]
+       });
+    </script>
+  </body>
+</html>

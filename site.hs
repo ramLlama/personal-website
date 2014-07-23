@@ -58,16 +58,22 @@ main = hakyllWith config $ do
           getResourceString
             >>= applyAsTemplate todayCtx
 
-    -- Compile static pages to web root with Pandoc
-    match "posts/*" $ do
-        route $ setExtension ""
+    -- Create post contents
+    match "posts/**.adoc" $ do
+        route $ setExtension "html"
         compile $ do
           let baseCtx = constField "stylesheet" "/static/css/post.css" `mappend`
                         itemCtx
-          pandocCompilerWith defaultHakyllReaderOptions pandocWriterOptions
+          getResourceString
+            >>= withItemBody (unixFilter "asciidoctor" ["--out-file", "-", "--attribute", "stylesheet!,notitle", "-"])
             >>= loadAndApplyTemplate "templates/post.html"    itemCtx
             >>= loadAndApplyTemplate "templates/base.html" baseCtx
             >>= relativizeUrls
+
+    -- Copy over static assets of post
+    match "posts/**" $ do
+      route $ idRoute
+      compile copyFileCompiler
 
     match "index.html" $ do
         route idRoute
@@ -128,8 +134,7 @@ main = hakyllWith config $ do
       compile $ do
         let postIndexCtx =
               constField "page-title" "Posts" `mappend`
-              -- field "items" (\_ -> postList recentFirst) `mappend`
-              constField "items" "Nothing yet!" `mappend`
+              field "items" (\_ -> postList recentFirst) `mappend`
               defaultContext
 
             baseCtx =
@@ -196,7 +201,7 @@ itemList glob template sortFilter = do
     return list
 
 postList :: ([Item String] -> Compiler [Item String]) -> Compiler String
-postList sortFilter = itemList "posts/*" "templates/post_listing.html" sortFilter
+postList sortFilter = itemList "posts/**/index.adoc" "templates/post_listing.html" sortFilter
 
 publicationList :: ([Item String] -> Compiler [Item String]) -> Compiler String
 publicationList sortFilter = itemList "publications/*" "templates/publication_listing.html" sortFilter

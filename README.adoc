@@ -4,23 +4,19 @@ personal-website.git README
 :Email: ram@llama.is
 :Date: 2014-02-14
 
-http://llama.is
-------------------
-
-Requirements
-~~~~~~~~~~~~
+== http://llama.is
+=== Requirements
 
 - GHC
 - Hakyll
 - Sass
 - [Compass](http://compass-style.org/)
 
-Also Uses
-~~~~~~~~~~~
+=== Also Uses
 
 - Foundation 5
 
-## Commands
+=== Commands
 
 .How To Build
 [source,sh]

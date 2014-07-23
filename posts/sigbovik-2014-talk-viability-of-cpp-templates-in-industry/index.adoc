@@ -1,0 +1,68 @@
+SIGBOVIK 2014 Talk: Viability of C++ Templates in Industry
+==========================================================
+:Author: Ram Raghunathan
+:Email: ram@llama.is
+:Date: 2014-04-08
+
+= Viability of C++ Templates in Industry: An Anecdotal Study
+
+== Introduction
+I gave this talk at http://sigbovik.org/2014/[SIGBOVIK 2014] and in
+fact, was second to last in the proceedings! After seeing many
+remarkable and thoroughly laugh-inducing talks, I was very worried
+that I wouldn't be up to par. In fact, just between you and me, I made
+this talk in the two hours preceding the event, although the ideas had
+been bouncing around my head for weeks.
+
+== The Presentation Itself
+And without further ado, click link:static/presentation.html[here] to
+see the presentation. I created it using the very accessible
+http://lab.hakim.se/reveal-js[reveal.js] framework for using HTML5 and
+Javascript to create presentable and portable presentations. As an
+aside, I think HTML/JS is definitely the future for presentations and
+reveal.js allowed me to strike a good balance between
+way-out-there-bling  *cough*
+http://bartaz.github.io/impress.js[impress.js] *cough* and being
+confined to Powerpoint, Google Drive Presentations and other more
+proprietary solutions.
+
+== So, How Did the Talk Go?
+It did not go as poorly as I hoped, at least! Feedback I received
+later and also from the audience itself showed that concepts like CRTP
+and SFINAE are too advanced for even the intermediate $$C++$$ developer
+and their sheer ludicrousness was lost on much of the audience. Only
+those select few who had extensive experience with $$C++$$ realized the
+joke that I was trying to convey.
+
+For those who need a primer, CRTP is the
+http://en.wikipedia.org/wiki/Curiously_recurring_template_pattern[Curiously
+Recursive Template Pattern] that allow the programmer to designate
+inheritance and polymorphism properties at compile-time. Therefore the
+resulting binary usually runs faster as polymorphism checks have been
+done at compile-time and hence we don't need RTTI and VTables to do
+these checks at runtime.
+
+SFINAE stands for
+http://en.wikipedia.org/wiki/Substitution_failure_is_not_an_error[Substitution
+Failure is Not an Error] and is an even more advanced template
+compilation rule that allows one to change the code generated
+depending on the template argument. A canonical example of this in
+practice is to use two different code paths depending on whether the
+calling object defines a particular function or not.
+
+Both of these techniques are very, very cool and really show the power
+of the template system. However, they also show just how crazy you can
+get with $$C++$$ templates. I tried to use them as deadpan jokes about the
+ridiculousness of allowing such monstrosities, which can and do appear
+in production code (I have used both myself! Oh, the shame...).
+
+However, once I got to the part about inscrutable error messages, the
+whole auditorium laughed at key moments. It seems even those most
+averse to programming recognize the value of clear and coherent error
+messages! The final remarks about functional purity and additional
+features in $$C++$$11 also elicited some chuckles.
+
+So, I started off rather poorly, but I think I ended well. I will make
+sure to keep all material at a more accessible level next time, or
+just focus on one significant piece that I can bring everyone up to
+speed in quickly.
