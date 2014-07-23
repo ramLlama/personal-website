@@ -1,20 +1,18 @@
-personal-website.git README
-=============================
+= personal-website.git README
 :Author: Ram Raghunathan
 :Email: ram@llama.is
-:Date: 2014-02-14
+:Date: 2014-07-23
 
 == http://llama.is
 === Requirements
 
 - GHC
 - Hakyll
+- Ruby
 - Sass
-- [Compass](http://compass-style.org/)
-
-=== Also Uses
-
 - Foundation 5
+- http://compass-style.org/[Compass]
+- asciidoctor
 
 === Commands
 
@@ -23,5 +21,5 @@ personal-website.git README
 ----
 ./site build
 ./site rebuild
-./publish.sh <location>
+./publish.sh --target <location>
 ----
