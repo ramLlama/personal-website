@@ -1,10 +1,7 @@
-SIGBOVIK 2014 Talk: Viability of C++ Templates in Industry
-==========================================================
+= Viability of C++ Templates in Industry: An Anecdotal Study
 :Author: Ram Raghunathan
 :Email: ram@llama.is
-:Date: 2014-04-08
-
-= Viability of C++ Templates in Industry: An Anecdotal Study
+:revdate: 2014-04-08
 
 == Introduction
 I gave this talk at http://sigbovik.org/2014/[SIGBOVIK 2014] and in
@@ -21,8 +18,8 @@ http://lab.hakim.se/reveal-js[reveal.js] framework for using HTML5 and
 Javascript to create presentable and portable presentations. As an
 aside, I think HTML/JS is definitely the future for presentations and
 reveal.js allowed me to strike a good balance between
-way-out-there-bling  *cough*
-http://bartaz.github.io/impress.js[impress.js] *cough* and being
+way-out-there-bling (*cough*
+http://bartaz.github.io/impress.js[impress.js] *cough*) and being
 confined to Powerpoint, Google Drive Presentations and other more
 proprietary solutions.
 
