@@ -1,30 +1,26 @@
-@import "base";
+@import "template/base";
 
-.content {
-    @include grid-row();
+.intro-list {
+    list-style-type: none;
+    margin: 0px;
+    padding: 0px;
+    text-align: center;
+}
 
-    ul {
-	list-style-type: none;
-	margin: 0px;
-	padding: 0px;
-	text-align: center;
+.logotype {
+    font-family: 'Dancing Script', serif;
 
-	li {
-	    h1.logotype {
-		font-family: 'Dancing Script', serif;
-
-		@media #{$small-only} {
-		    font-size: rem-calc(50);
-		}
-
-		@media #{$medium-up} {
-		    font-size: rem-calc(75);
-		}
-	    }
-
-	    #lede-image {
-		border-radius: 20px;
-	    }
-	}
+    @media #{$small-only} {
+	font-size: rem-calc(50);
     }
+
+    @media #{$medium-up} {
+	font-size: rem-calc(75);
+    }
+}
+
+.lede-image {
+    @include img-center;
+
+    border-radius: 20px;
 }

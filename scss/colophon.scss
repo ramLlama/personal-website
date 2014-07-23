@@ -1,6 +1,1 @@
-@import "base";
-
-.content {
-    @include grid-row();
-    @include standard-grid();
-}
+@import "template/base";
