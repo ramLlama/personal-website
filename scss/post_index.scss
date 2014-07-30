@@ -5,9 +5,16 @@
 }
 
 .post-title {
+    text-align: left;
     float: left;
 }
 
 .date {
-    float: right;
+    @media #{$small-only} {
+        visibility: hidden;
+    }
+
+    @media #{$medium-up} {
+        float: right;
+    }
 }
