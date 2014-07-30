@@ -4,7 +4,7 @@
     <!-- For sticky footer in IE -->
     <!--[if !IE 7]>
 	<style type="text/css">
-	  #wrapper {
+	  #footer-wrapper {
 	      display: table;
 	      height: 100%
 	  }
@@ -23,13 +23,13 @@
   </head>
 
   <body>
-    <div id="footer-wrapper-1">
+    <div id="footer-wrapper">
       <div class="contain-to-grid fixed">
 	<nav class="top-bar" data-topbar>
 	  <ul class="title-area">
 	    <li class="name">$if(isIndex)$
 	      <!-- No menu name for index! -->$else$
-	      <h1 class="header-logotype"><a href="/">Ram Raghunathan</a></h1>$endif$
+	      <h1 id="header-logotype"><a href="/">Ram Raghunathan</a></h1>$endif$
 	    </li>
 	    <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
 	  </ul>
@@ -44,19 +44,18 @@
 	</nav>
       </div>
 
-      <div id="footer-wrapper-2">
-	<div id="top-bar-gutter"></div>
-	<div id="content-wrapper">
-	  <div class="content">
-	    $body$
-	  </div>
-	</div>
+      <div id="content">
+	$body$
       </div>
     </div>
 
     <div id="footer">
-      <p><a href="/humans.txt"><img src="/static/img/humanstxt-transparent-color.png" /></a>
-	<a href="/colophon">Colophon</a></p>
+      <div id="footer-content">
+	<p class="footer-text">
+	  <a href="/humans.txt"><img src="/static/img/humanstxt-transparent-color.png" /></a>
+	  <a href="/colophon">Colophon</a>
+	</p>
+      </zdiv>
     </div>
 
     <!-- Scripts -->

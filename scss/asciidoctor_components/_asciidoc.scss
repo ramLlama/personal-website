@@ -153,8 +153,7 @@ b.button:after {
 
 #header,
 #content,
-#footnotes,
-#footer {
+#footnotes {
   @include grid-row;
   @include grid-column($float:false);
 }
@@ -326,18 +325,6 @@ b.button:after {
 #content #toctitle {
   @include subheader;
   font-size: 1.375em;
-}
-
-#footer {
-  max-width: 100%;
-  //margin-top: $panel-margin-bottom * 2;
-  background-color: $footer-bg;
-  padding: $panel-padding;
-}
-
-#footer-text {
-  color: $footer-font-color;
-  line-height: $paragraph-line-height * .9;
 }
 
 .sect1 {
