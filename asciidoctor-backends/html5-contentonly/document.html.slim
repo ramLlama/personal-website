@@ -3,9 +3,10 @@
   #header
     - if has_header?
       - unless notitle
-        h1=@header.title
+        h1 itemprop="name" =@header.title
       - if attr? :author
-        span.author#author =(attr :author)
+        span itemprop="author" itemscope="" itemtype="http://schema.org/Person"
+          span.author#author itemprop="name" =(attr :author)
         br
         - if attr? :email
           span.email#email =sub_macros(attr :email)
@@ -20,7 +21,8 @@
         span#revnumber #{((attr 'version-label') || '').downcase} #{attr :revnumber}#{',' if attr? :revdate}
         '
       - if attr? :revdate
-        span#revdate="Last modified on #{(attr :revdate)}"
+        span#revdate
+          | Last modified on <span itemprop="datePublished" content="#{attr :revdate}">#{attr :revdate}</span>
       - if attr? :revremark
         br
         span#revremark=attr :revremark
