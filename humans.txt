@@ -7,4 +7,4 @@ Location: Pittsburgh, PA, USA
 Last update: $today$
 Standards: HTML5, CSS3
 Components: Modernizr, Foundation, jQuery
-Software: Hakyll, Compass & Sass, Emacs, Git, Google Fonts, Fontsquirrel Webfont Generator
+Software: Hakyll, Compass, Sass, Asciidoctor, Ruby, Emacs, Git, Google Fonts, Fontsquirrel Webfont Generator
