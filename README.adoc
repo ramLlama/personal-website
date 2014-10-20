@@ -1,18 +1,20 @@
 = personal-website.git README
-:Author: Ram Raghunathan
-:Email: ram@llama.is
-:Date: 2014-07-23
+Ram Raghunathan <ram@llama.is>
+2014-07-23
 
 == http://llama.is
 === Requirements
 
-- GHC
-- Hakyll
-- Ruby
-- Sass
-- Foundation 5
+- http://asciidoctor.org/[asciidoctor]
 - http://compass-style.org/[Compass]
-- asciidoctor
+- http://foundation.zurb.com/[Foundation 5]
+- http://www.haskell.org/ghc/[GHC]
+- http://jaspervdj.be/hakyll/[Hakyll]
+- http://jpegclub.org/jpegtran/[jpegtran]
+- http://www.crockford.com/javascript/jsmin.html[JSMin]
+- http://pmt.sourceforge.net/pngcrush/[PNGCRUSH]
+- https://www.ruby-lang.org/[Ruby]
+- http://sass-lang.com/[Sass]
 
 === Commands
 
@@ -20,6 +22,10 @@
 [source,sh]
 ----
 ./site build
-./site rebuild
+----
+
+.How To Publish
+[source,sh]
+----
 ./publish.sh --target <location>
 ----
